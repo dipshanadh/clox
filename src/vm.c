@@ -4,6 +4,7 @@
 #include "debug.h"
 #include "vm.h"
 
+// initializing VM
 VM vm;
 
 // helper function to reset stack (set stackTop to beginning of stack array)
@@ -22,33 +23,45 @@ static InterpretResult run() {
     // a macro to read the index from bytecode and look up for corresponding value in constant table
     #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
 
-    while (true)
-    {
+    // a macro that takes the operator and does binary operations
+    #define BINARY_OP(op) \
+        do { \
+            double b = pop(); \
+            double a = pop(); \
+            push(a op b); \
+        } while(false)
+
+    while (true) {
         // if DEBUG_TRACE_EXECUTION flag is defined, enable logging
         #ifdef DEBUG_TRACE_EXECUTION
-        // stack tracing
-        for (Value *slot = vm.stack; slot < vm.stackTop; slot++)
-        {
-            printf("[ ");
-            printValue(*slot);
-            printf(" ]");
-        }
+            // stack tracing
+            for (Value *slot = vm.stack; slot < vm.stackTop; slot++) {
+                printf("          ");
+                printf("[ ");
+                printValue(*slot);
+                printf(" ]");
+            }
 
-        // subtract adress of code from ip to get the relative offset from beginning of bytecode
-        disassembleInstruction(vm.chunk, (int)(vm.ip - vm.chunk->code));
+            // subtract adress of code from ip to get the relative offset from beginning of bytecode
+            disassembleInstruction(vm.chunk, (int)(vm.ip - vm.chunk->code));
         #endif
 
         // read the current byte
         uint8_t instruction = READ_BYTE();
 
-        switch (instruction)
-        {
+        switch (instruction) {
             case OP_CONSTANT:
                 // read the constant the push to the stack
                 Value constant = READ_CONSTANT();
                 push(constant);
 
                 break;
+            
+            case OP_ADD:      BINARY_OP(+); break;
+            case OP_SUBTRACT: BINARY_OP(-); break;
+            case OP_MULTIPLY: BINARY_OP(*); break;
+            case OP_DIVIDE:   BINARY_OP(/); break;
+            case OP_NEGATE:   push(-pop()); break;
 
             case OP_RETURN:
                 printValue(pop());
@@ -61,6 +74,7 @@ static InterpretResult run() {
     // to make the scoping more explicit, undefine these macros
     #undef READ_BYTE
     #undef READ_CONSTANT
+    #undef BINARY_OP
 }
 
 void freeVM() { }

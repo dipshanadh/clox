@@ -8,6 +8,11 @@
 typedef enum {
     OP_RETURN,
     OP_CONSTANT,
+    OP_ADD,
+    OP_SUBTRACT,
+    OP_MULTIPLY,
+    OP_DIVIDE,
+    OP_NEGATE,
 } OpCode;
 
 // struct to wrap a pointer to an array of bytecode along with its allocated capacity and the no. of elements in use

@@ -12,11 +12,17 @@ int main(int argc, const char *argv[]) {
     initChunk(&chunk);
 
     // add a constant to the constant list
-    int constant = addConstant(&chunk, 1.2);
+    int constant = addConstant(&chunk, 3);
 
     // write constant instruction opcode to the chunk followed by the constant index
     writeChunk(&chunk, OP_CONSTANT, 123);
     writeChunk(&chunk, constant, 123);
+
+    constant = addConstant(&chunk, 2);
+    writeChunk(&chunk, OP_CONSTANT, 123);
+    writeChunk(&chunk, constant, 123);
+
+    writeChunk(&chunk, OP_ADD, 123);
 
     // write return instruction opcode to the chunk
     writeChunk(&chunk, OP_RETURN, 123);
