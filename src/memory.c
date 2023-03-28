@@ -2,11 +2,9 @@
 
 #include "memory.h"
 
-void *reallocate(void *pointer, size_t oldSize, size_t newSize)
-{
+void *reallocate(void *pointer, size_t oldSize, size_t newSize) {
     // free allocation if the new size is 0
-    if (newSize == 0)
-    {
+    if (newSize == 0) {
         free(pointer);
         return NULL;
     }

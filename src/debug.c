@@ -3,23 +3,20 @@
 #include "debug.h"
 #include "value.h"
 
-void disassembleChunk(Chunk *chunk, const char *name)
-{
+void disassembleChunk(Chunk *chunk, const char *name) {
     // print a little header
     printf("== %s ==\n", name);
 
     int offset = 0;
 
     // diassemble until the offset reach the end of the chunk
-    while (offset < chunk->count)
-    {
+    while (offset < chunk->count) {
         offset = disassembleInstruction(chunk, offset);
     }
 }
 
 // helper function to disassemble constant instruction
-static int constantInstruction(const char *name, Chunk *chunk, int offset)
-{
+static int constantInstruction(const char *name, Chunk *chunk, int offset) {
     // read the index of constant from the next offset
     uint8_t constant = chunk->code[offset + 1];
 
@@ -35,16 +32,14 @@ static int constantInstruction(const char *name, Chunk *chunk, int offset)
 }
 
 // helper function to disassemble simple instruction
-static int simpleInstruction(const char *name, int offset)
-{
+static int simpleInstruction(const char *name, int offset) {
     // print the name of opcode and return the offset for next byte
     printf("%s\n", name);
 
     return offset + 1;
 }
 
-int disassembleInstruction(Chunk *chunk, int offset)
-{
+int disassembleInstruction(Chunk *chunk, int offset) {
     // first print the byte offset
     printf("%04d ", offset);
 
@@ -59,17 +54,16 @@ int disassembleInstruction(Chunk *chunk, int offset)
     uint8_t instruction = chunk->code[offset];
 
     // switch on that instruction and dispatch to a helper function
-    switch (instruction)
-    {
-    case OP_CONSTANT:
-        return constantInstruction("OP_CONSTANT", chunk, offset);
+    switch (instruction) {
+        case OP_CONSTANT:
+            return constantInstruction("OP_CONSTANT", chunk, offset);
 
-    case OP_RETURN:
-        return simpleInstruction("OP_RETURN", offset);
+        case OP_RETURN:
+            return simpleInstruction("OP_RETURN", offset);
 
-    default:
-        // incase the opcode is not known
-        printf("Unknown opcode %d\n", instruction);
-        return offset + 1;
+        default:
+            // incase the opcode is not known
+            printf("Unknown opcode %d\n", instruction);
+            return offset + 1;
     }
 }

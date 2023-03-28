@@ -7,8 +7,7 @@
 // maximum no. of values we can store on stack
 #define STACK_MAX 256
 
-typedef struct
-{
+typedef struct {
     Chunk *chunk;
 
     // instruction pointer to keep track where the VM is
@@ -19,8 +18,7 @@ typedef struct
 } VM;
 
 // vm responds with a value from this enum
-typedef enum
-{
+typedef enum {
     INTERPRET_OK,
     INTERPRET_COMPILE_ERROR,
     INTERPRET_RUNTIME_ERROR,

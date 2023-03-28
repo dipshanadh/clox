@@ -6,8 +6,7 @@
 typedef double Value;
 
 // struct to wrap a pointer to an array of values along with its allocated capacity and the no. of elements in use
-typedef struct
-{
+typedef struct {
     int capacity;
     int count;
     Value *values;

@@ -5,15 +5,13 @@
 #include "value.h"
 
 // one-byte operation code that each instruction have
-typedef enum
-{
+typedef enum {
     OP_RETURN,
     OP_CONSTANT,
 } OpCode;
 
 // struct to wrap a pointer to an array of bytecode along with its allocated capacity and the no. of elements in use
-typedef struct
-{
+typedef struct {
     // no. of allocated entries in use
     int count;
 

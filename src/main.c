@@ -3,8 +3,7 @@
 #include "debug.h"
 #include "vm.h"
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     // initialize the VM
     initVM();
 

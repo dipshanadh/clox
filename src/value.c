@@ -3,16 +3,14 @@
 #include "memory.h"
 #include "value.h"
 
-void initValueArray(ValueArray *array)
-{
+void initValueArray(ValueArray *array) {
     // zero out all the fields of the struct
     array->values = NULL;
     array->capacity = 0;
     array->count = 0;
 }
 
-void freeValueArray(ValueArray *array)
-{
+void freeValueArray(ValueArray *array) {
     // first deallocate all the memory
     FREE_ARRAY(Value, array->values, array->count);
 
@@ -20,11 +18,9 @@ void freeValueArray(ValueArray *array)
     initValueArray(array);
 }
 
-void writeValueArray(ValueArray *array, Value value)
-{
+void writeValueArray(ValueArray *array, Value value) {
     // grow the array if its doesn't have capacity for the new value
-    if (array->capacity < array->count + 1)
-    {
+    if (array->capacity < array->count + 1) {
         int oldCapacity = array->capacity;
 
         // set the new capacity
@@ -41,7 +37,6 @@ void writeValueArray(ValueArray *array, Value value)
     array->count++;
 }
 
-void printValue(Value value)
-{
+void printValue(Value value) {
     printf("%g", value);
 }
