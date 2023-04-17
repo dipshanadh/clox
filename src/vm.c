@@ -52,10 +52,11 @@ static InterpretResult run() {
                 printf("\n");
                 return INTERPRET_OK;
 
-            case OP_CONSTANT:
+            case OP_CONSTANT: {
                 Value constant = READ_CONSTANT();
                 push(constant);
                 break;
+             }
         }
     }
 
@@ -73,12 +74,23 @@ void push(Value value) {
 
 Value pop() {
     vm.stackTop--;
-    
     return *vm.stackTop;
 }
 
 InterpretResult interpret(const char *source) {
-    parse(source);
+    Chunk chunk;
+    initChunk(&chunk);
 
-    return INTERPRET_OK;
+    if(!parse(source, &chunk)) {
+        freeChunk(&chunk);
+        return INTERPRET_COMPILE_ERROR;
+    }
+
+    vm.chunk    = &chunk;
+    vm.ip       = vm.chunk->code;
+
+    InterpretResult result = run();
+
+    freeChunk(&chunk);
+    return result;
 }
