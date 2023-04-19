@@ -11,7 +11,6 @@ I am currently following along, but I hope I will be able to add my own features
 To clone and run this application, you'll need Git and GCC installed on your computer. From your command line:
 
 ```bash
-# Clone the repository
 git clone https://github.com/dipshanadh/clox.git
 cd clox
 gcc -Isrc ./src/*.c -o clox && ./clox hello.lox
