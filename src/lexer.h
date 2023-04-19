@@ -7,7 +7,7 @@ typedef enum {
     TOKEN_COMMA,        TOKEN_DOT,
     TOKEN_MINUS,        TOKEN_PLUS,
     TOKEN_SEMICOLON,    TOKEN_SLASH,    
-    TOKEN_ASTERISK,
+    TOKEN_STAR,
 
     TOKEN_BANG,         TOKEN_BANG_EQUAL,
     TOKEN_EQUAL,        TOKEN_EQUAL_EQUAL,

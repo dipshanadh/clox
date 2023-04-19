@@ -190,7 +190,7 @@ Token scanToken() {
         case '-': return makeToken(TOKEN_MINUS);
         case '+': return makeToken(TOKEN_PLUS);
         case '/': return makeToken(TOKEN_SLASH);
-        case '*': return makeToken(TOKEN_ASTERISK);
+        case '*': return makeToken(TOKEN_STAR);
         case '"': return string();
         case '!':
             return makeToken(matchNextChar('=') ? TOKEN_BANG_EQUAL : TOKEN_BANG);
